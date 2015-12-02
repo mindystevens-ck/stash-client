@@ -102,6 +102,24 @@ module Stash
       query_values['limit'] && query_values['limit'] < 100 ? fetch(uri).fetch('values') : fetch_all(uri)
     end
 
+    def compare_commits_for(repo, opts = {})
+      query_values = {}
+
+      path = remove_leading_slash(repo.fetch('link').fetch('url').sub('browse', 'compare/commits'))
+      uri = @url.join(path)
+
+      query_values['from'] = opts[:from] if opts[:from]
+      query_values['to'] = opts[:to] if opts[:to]
+      query_values['limit'] = Integer(opts[:limit]) if opts[:limit]
+
+      # default limit to 100 commits
+      query_values['limit'] = 100 if query_values.empty?
+
+      uri.query_values = query_values
+
+      query_values['limit'] && query_values['limit'] < 100 ? fetch(uri).fetch('values') : fetch_all(uri)
+    end
+
     def changes_for(repo, sha, opts = {})
       path = remove_leading_slash(repo.fetch('link').fetch('url').sub('browse', 'changes'))
       uri = @url.join(path)
@@ -113,6 +131,43 @@ module Stash
       uri.query_values = query_values
 
       query_values['limit'] ? fetch(uri).fetch('values') : fetch_all(uri)
+    end
+
+    def branches_for(repo, opts = {})
+      query_values = {}
+
+      path = remove_leading_slash(repo.fetch('link').fetch('url').sub('browse', 'branches'))
+      uri = @url.join(path)
+
+      query_values['base'] = opts[:base] if opts[:base]
+      query_values['details'] = opts[:details] if opts[:details]
+      query_values['filterText'] = opts[:filterText] if opts[:filterText]
+      query_values['orderBy'] = opts[:orderBy] if opts[:orderBy]
+      query_values['limit'] = Integer(opts[:limit]) if opts[:limit]
+
+      # default limit to 100 commits
+      query_values['limit'] = 100 if query_values.empty?
+
+      uri.query_values = query_values
+
+      query_values['limit'] && query_values['limit'] < 100 ? fetch(uri).fetch('values') : fetch_all(uri)
+    end
+
+    def branch_tags_for(repo, opts = {})
+      query_values = {}
+
+      path = remove_leading_slash(repo.fetch('link').fetch('url').sub('browse', 'tags'))
+      uri = @url.join(path)
+
+      query_values['filterText'] = opts[:filterText] if opts[:filterText]
+      query_values['limit'] = Integer(opts[:limit]) if opts[:limit]
+
+      # default limit to 100 commits
+      query_values['limit'] = 100 if query_values.empty?
+
+      uri.query_values = query_values
+
+      query_values['limit'] && query_values['limit'] < 100 ? fetch(uri).fetch('values') : fetch_all(uri)
     end
 
     private

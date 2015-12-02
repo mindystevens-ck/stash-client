@@ -6,8 +6,8 @@ require 'stash/client/version'
 Gem::Specification.new do |spec|
   spec.name          = "stash-client"
   spec.version       = Stash::Client::VERSION
-  spec.authors       = ["Jari Bakken", "Josh Westmoreland"]
-  spec.email         = ["jari.bakken@gmail.com", "joshua.westmoreland@theice.com"]
+  spec.authors       = ["Jari Bakken", "Josh Westmoreland", "Mindy Stevens"]
+  spec.email         = ["jari.bakken@gmail.com", "joshua.westmoreland@theice.com", "MindyRS@gmail.com"]
   spec.description   = %q{Stash Client Gem}
   spec.summary       = %q{Atlassian Stash Client for Ruby}
   spec.homepage      = "https://stash.intcx.net/projects/CM/repos/stash-client/browse"

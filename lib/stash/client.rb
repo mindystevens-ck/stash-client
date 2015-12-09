@@ -200,6 +200,8 @@ module Stash
 
       until response['isLastPage']
         response = fetch(uri)
+
+        return nil unless response['values']
         result += response['values']
 
         next_page_start = response['nextPageStart'] || (response['start'] + response['size'])
